@@ -1,6 +1,6 @@
 async function fetchAccounts() {
     try {
-        const response = await fetch("dbcloudcrud-production.up.railway.app/accounts");
+        const response = await fetch("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/accounts");
         const data = await response.json();
 
         const tableBody = document.getElementById("accounts-table");
@@ -30,7 +30,7 @@ function createAccount() {
     const telefono = prompt("Ingrese el teléfono:");
 
     if (nombre && balance && telefono) {
-        fetch("dbcloudcrud-production.up.railway.app/accounts", {
+        fetch("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/accounts", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
