@@ -13,7 +13,7 @@ app.use(express.static("public"));
 app.use(express.json());
 
 // HTML
-app.get("dbcloudcrud-production.up.railway.app/", (req, res) => {
+app.get("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
@@ -24,7 +24,7 @@ const pool = new Pool({
 });
 
 // ruta select todas las cuentas
-app.get("dbcloudcrud-production.up.railway.app/accounts", async (req, res) => {
+app.get("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/accounts", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM accounts;");
     res.json(result.rows);
@@ -35,7 +35,7 @@ app.get("dbcloudcrud-production.up.railway.app/accounts", async (req, res) => {
 });
 
 //ruta crear nuevas cuenta
-app.post("dbcloudcrud-production.up.railway.app/accounts", async (req, res) => {
+app.post("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/accounts", async (req, res) => {
     const { nombre, balance, telefono } = req.body;
     const id = uuidv4(); //Generar un nuevo ID aleatorio
 
@@ -49,7 +49,7 @@ app.post("dbcloudcrud-production.up.railway.app/accounts", async (req, res) => {
 });
 
 //ruta actualizar account
-app.put("dbcloudcrud-production.up.railway.app/accounts/:id", async (req, res) => {
+app.put("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/accounts/:id", async (req, res) => {
     const { id } = req.params;
     const { nombre, balance, telefono } = req.body;
 
@@ -63,7 +63,7 @@ app.put("dbcloudcrud-production.up.railway.app/accounts/:id", async (req, res) =
 });
 
 //ruta eliminar cuenta
-app.delete("dbcloudcrud-production.up.railway.app/accounts/:id", async (req, res) => {
+app.delete("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/accounts/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
