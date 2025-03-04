@@ -87,3 +87,5 @@ app.delete("/accounts/:id", async (req, res) => {
 
 // ✅ Exportar la app (Vercel no usa `app.listen`)
 module.exports = app;
+
+console.log("DATABASE_URL:", process.env.DATABASE_URL);
