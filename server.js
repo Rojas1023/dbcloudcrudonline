@@ -6,25 +6,28 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const port = process.env.PORT;
 
+// Middleware
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
 
-// HTML
-app.get("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-//Conexion a la base de datos CockroachDB
+// 🛠️ Conexión a la base de datos CockroachDB con SSL
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   application_name: "web_app",
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
-// ruta select todas las cuentas
-app.get("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/accounts", async (req, res) => {
+// 🏠 Ruta principal - Servir HTML
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// 📂 Ruta para obtener todas las cuentas
+app.get("/accounts", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM accounts;");
     res.json(result.rows);
@@ -34,10 +37,10 @@ app.get("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/ac
   }
 });
 
-//ruta crear nuevas cuenta
-app.post("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/accounts", async (req, res) => {
+// ➕ Ruta para crear una cuenta nueva
+app.post("/accounts", async (req, res) => {
     const { nombre, balance, telefono } = req.body;
-    const id = uuidv4(); //Generar un nuevo ID aleatorio
+    const id = uuidv4(); // Generar un nuevo ID aleatorio
 
     try {
         await pool.query("INSERT INTO accounts (id, nombre, balance, telefono) VALUES ($1, $2, $3, $4);", [id, nombre, balance, telefono]);
@@ -48,8 +51,8 @@ app.post("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/a
     }
 });
 
-//ruta actualizar account
-app.put("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/accounts/:id", async (req, res) => {
+// ✏️ Ruta para actualizar una cuenta
+app.put("/accounts/:id", async (req, res) => {
     const { id } = req.params;
     const { nombre, balance, telefono } = req.body;
 
@@ -62,8 +65,8 @@ app.put("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/ac
     }
 });
 
-//ruta eliminar cuenta
-app.delete("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app/accounts/:id", async (req, res) => {
+// ❌ Ruta para eliminar una cuenta
+app.delete("/accounts/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -75,7 +78,5 @@ app.delete("dbcloudcrudonline-kjiz-83i4vndzf-jhoans-projects-4137abc8.vercel.app
     }
 });
 
-// Iniciar servidor
-app.listen(port, '0.0.0.0', () => {
-  console.log(`Servidor corriendo en el puerto ${port}`);
-});
+// ✅ Exportar la app (Vercel no usa `app.listen`)
+module.exports = app;
