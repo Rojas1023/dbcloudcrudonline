@@ -9,7 +9,8 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.static("public"));
+// app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 // 🛠️ Conexión a la base de datos CockroachDB con SSL
@@ -22,9 +23,15 @@ const pool = new Pool({
 });
 
 // 🏠 Ruta principal - Servir HTML
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+//app.get("/", (req, res) => {
+//    res.sendFile(path.join(__dirname, "public", "index.html"));
+//});
+// Ruta para servir el frontend correctamente en Vercel
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+
 
 // 📂 Ruta para obtener todas las cuentas
 app.get("/accounts", async (req, res) => {
