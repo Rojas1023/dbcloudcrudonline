@@ -1,5 +1,4 @@
 console.log("Test:");
-console.log(response.json);
 pool.connect()
     .then(client => {
         console.log("✅ Conexión a la base de datos establecida");
