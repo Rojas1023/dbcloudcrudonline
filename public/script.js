@@ -54,35 +54,12 @@ function createAccount() {
     }
 }
 
-// function editAccount(id, nombre, balance, telefono) {
-//     localStorage.setItem("editAccountId", id);
-//     localStorage.setItem("editAccountNombre", nombre);
-//     localStorage.setItem("editAccountBalance", balance);
-//     localStorage.setItem("editAccountTelefono", telefono);
-//     window.location.href = "/editar.html";
-// }
-
-function updateAccount() {
-    const id = localStorage.getItem("editAccountId");
-    const nombre = document.getElementById("nombre").value;
-    const balance = document.getElementById("balance").value;
-    const telefono = document.getElementById("telefono").value;
-
-    if (id && nombre && balance && telefono) {
-        fetch(`/accounts/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ nombre, balance, telefono }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert("Cuenta actualizada con éxito.");
-            window.location.href = "/index.html"; // Redirigir a la página principal
-        })
-        .catch(error => console.error("Error al actualizar la cuenta:", error));
-    }
+function editAccount(id, nombre, balance, telefono) {
+    localStorage.setItem("editAccountId", id);
+    localStorage.setItem("editAccountNombre", nombre);
+    localStorage.setItem("editAccountBalance", balance);
+    localStorage.setItem("editAccountTelefono", telefono);
+    window.location.href = "/editar.html";
 }
 
 
