@@ -1,3 +1,6 @@
+console.log("Test:");
+
+
 require("dotenv").config();
 const { v4: uuidv4 } = require('uuid');
 const express = require("express");
