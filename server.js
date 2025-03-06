@@ -45,7 +45,7 @@ pool.connect()
 app.get("/accounts", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM accounts;");
-    res.json(result.rows[0]);
+    res.json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error al obtener las cuentas" });
