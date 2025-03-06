@@ -6,6 +6,7 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
@@ -21,6 +22,13 @@ const pool = new Pool({
     rejectUnauthorized: false
   }
 });
+
+pool.connect()
+    .then(client => {
+        console.log("✅ Conexión a la base de datos establecida");
+        client.release();
+    })
+    .catch(err => console.error("❌ Error al conectar a la base de datos:", err.message));
 
 // 🏠 Ruta principal - Servir HTML
 //app.get("/", (req, res) => {
@@ -85,7 +93,11 @@ app.delete("/accounts/:id", async (req, res) => {
     }
 });
 
-// ✅ Exportar la app (Vercel no usa `app.listen`)
-module.exports = app;
+// Iniciar el servidor (modo local) o exportar la app para Vercel
+if (process.env.NODE_ENV !== 'vercel') {
+    app.listen(port, () => {
+        console.log(`🚀 Servidor corriendo en http://localhost:${port}`);
+    });
+}
 
-console.log("DATABASE_URL:", process.env.DATABASE_URL);
+module.exports = app; // Necesario para Vercel
