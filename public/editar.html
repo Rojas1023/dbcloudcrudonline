@@ -52,7 +52,7 @@
             const id = document.getElementById("id").value;
 
             try {
-                const response = await fetch(`http://localhost:3000/accounts/${id}`, {
+                const response = await fetch(`/accounts/${id}`, {
                     method: 'DELETE',
                 });
 
