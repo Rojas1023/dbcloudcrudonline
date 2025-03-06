@@ -33,10 +33,7 @@ pool.connect()
     })
     .catch(err => console.error("❌ Error al conectar a la base de datos:", err.message));
 
-// 🏠 Ruta principal - Servir HTML
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+
 // Ruta para servir el frontend correctamente en Vercel
 //app.get('*', (req, res) => {
   //  res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -102,5 +99,10 @@ if (process.env.NODE_ENV !== 'vercel') {
         console.log(`🚀 Servidor corriendo en http://localhost:${port}`);
     });
 }
+
+// 🏠 Ruta principal - Servir HTML
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 module.exports = app; // Necesario para Vercel
