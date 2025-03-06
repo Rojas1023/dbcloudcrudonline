@@ -34,13 +34,13 @@ pool.connect()
     .catch(err => console.error("❌ Error al conectar a la base de datos:", err.message));
 
 // 🏠 Ruta principal - Servir HTML
-//app.get("/", (req, res) => {
-//    res.sendFile(path.join(__dirname, "public", "index.html"));
-//});
-// Ruta para servir el frontend correctamente en Vercel
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+// Ruta para servir el frontend correctamente en Vercel
+//app.get('*', (req, res) => {
+  //  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+//});
 
 
 
