@@ -1,6 +1,8 @@
 async function fetchAccounts() {
     try {
+        console.log("Entra Try 1");
         const response = await fetch("/accounts");
+        console.log("Pasa fetch 2");
         const data = await response.json();
         console.log("Pasa Linea 3");
         console.log(response.json);
