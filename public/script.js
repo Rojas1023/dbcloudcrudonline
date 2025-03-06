@@ -1,7 +1,10 @@
+console.log("Test:");
+
 async function fetchAccounts() {
     try {
         const response = await fetch("/accounts");
         const data = await response.json();
+        console.log(response.json);
 
         const tableBody = document.getElementById("accounts-table");
         tableBody.innerHTML = "";
