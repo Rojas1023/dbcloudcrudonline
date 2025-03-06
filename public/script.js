@@ -2,6 +2,7 @@ async function fetchAccounts() {
     try {
         const response = await fetch("/accounts");
         const data = await response.json();
+        console.log("Pasa Linea 3");
         console.log(response.json);
 
         const tableBody = document.getElementById("accounts-table");
@@ -58,4 +59,4 @@ function editAccount(id, nombre, balance, telefono) {
     window.location.href = "/editar.html";
 }
 
-window.onload = fetchAccounts;
+window.onload = fetchAccounts();
