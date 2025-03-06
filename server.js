@@ -93,16 +93,16 @@ app.delete("/accounts/:id", async (req, res) => {
     }
 });
 
+// Ruta para servir el frontend correctamente en Vercel
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Iniciar el servidor (modo local) o exportar la app para Vercel
 if (process.env.NODE_ENV !== 'vercel') {
     app.listen(port, () => {
         console.log(`🚀 Servidor corriendo en http://localhost:${port}`);
     });
 }
-
-// 🏠 Ruta principal - Servir HTML
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
-});
 
 module.exports = app; // Necesario para Vercel
