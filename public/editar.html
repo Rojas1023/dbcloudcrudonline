@@ -23,31 +23,29 @@
         document.getElementById("telefono").value = localStorage.getItem("editAccountTelefono");
 
         //Actializar la cuenta
-        async function updateAccount() {
-            const id = document.getElementById("id").value;
-            const nombre = document.getElementById("nombre").value;
-            const balance = document.getElementById("balance").value;
-            const telefono = document.getElementById("telefono").value;
+        function updateAccount() {
+    const id = localStorage.getItem("editAccountId");
+    const nombre = document.getElementById("nombre").value;
+    const balance = document.getElementById("balance").value;
+    const telefono = document.getElementById("telefono").value;
 
-            try {
-                const response = await fetch(`http://localhost:3000/accounts/${id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ nombre, balance, telefono }),
-                });
+    if (id && nombre && balance && telefono) {
+        fetch(`/accounts/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nombre, balance, telefono }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Cuenta actualizada con éxito.");
+            window.location.href = "/index.html"; // Redirigir a la página principal
+        })
+        .catch(error => console.error("Error al actualizar la cuenta:", error));
+    }
+}
 
-                if (response.ok) {
-                    alert("Cuenta actualizada con éxito.");
-                    window.location.href = "/index.html"; //volver a la lista de cuentas
-                } else {
-                    alert("Error al actualizar la cuenta.");
-                }
-            } catch (error) {
-                console.error("Error al actualizar la cuenta:", error);
-            }
-        }
 
         //eliminar la cuenta po id
         async function deleteAccount() {
